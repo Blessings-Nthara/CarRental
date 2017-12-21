@@ -97,7 +97,19 @@ namespace CarRental2
 
         protected void Button1_Click1(object sender, EventArgs e)
         {
-            if (confirmtextbox.Checked)
+            localhost.WebService1 check = new localhost.WebService1();
+         //   check.UsernameCheck(Emailtextbox.Text);
+            if (check.UsernameCheck(Emailtextbox.Text))
+            {
+                Label14.Visible = true;
+                
+                Label14.Text = "email already taken";
+            }
+
+
+
+
+            else if (confirmtextbox.Checked)
             {
                 SqlConnection con = new SqlConnection("Server=BLESSINGS-PC\\SQLEXPRESS;Database=CARRENTAL;Integrated Security=true");
                 con.Open();
@@ -201,7 +213,7 @@ namespace CarRental2
 
         protected void Emailtextbox_TextChanged(object sender, EventArgs e)
         {
-            
+           
         }
     }
 }

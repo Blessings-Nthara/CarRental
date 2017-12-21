@@ -15,6 +15,7 @@ namespace CarRental2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+          
             Label2.Visible = false;
         }
 

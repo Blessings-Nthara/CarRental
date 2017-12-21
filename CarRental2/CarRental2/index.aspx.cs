@@ -12,6 +12,7 @@ namespace CarRental2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Response.Cookies["UserEmail"].Expires = DateTime.Now.AddDays(-1);
             FormsAuthentication.SignOut();
            // FormsAuthentication.RedirectToLoginPage();
 

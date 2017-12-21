@@ -52,6 +52,9 @@
     .auto-style25 {
         margin-left: 194px;
     }
+        .auto-style26 {
+            color: red;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -98,7 +101,7 @@
             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="Emailtextbox" CssClass="auto-style23" ErrorMessage="Invalid Email" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
             <br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:Label ID="Label14" runat="server" Text="Label"></asp:Label>
+            <asp:Label ID="Label14" runat="server" Text="Label" CssClass="auto-style26"></asp:Label>
             <br class="auto-style20" />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Label ID="Label9" runat="server" CssClass="auto-style20" Text="Cellnumber"></asp:Label>

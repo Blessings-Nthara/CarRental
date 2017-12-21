@@ -45,7 +45,7 @@
                 <asp:TextBox ID="TextBox2" runat="server" Height="39px" placeholder="***********" style="font-size: x-large" TextMode="Password" Width="268px"></asp:TextBox>
                 <br />
                 <br />
-                <asp:Button ID="Button1" runat="server" BackColor="#FF6600" Height="48px" style="color: #FFFFFF; font-size: xx-large; margin-left: 9px" Text="SIGN IN" Width="321px" OnClick="Button1_Click" />
+                <asp:Button ID="Button1" runat="server" defaultbutton="Button1" BackColor="#FF6600" Height="48px" style="color: #FFFFFF; font-size: xx-large; margin-left: 9px" Text="SIGN IN" Width="321px" OnClick="Button1_Click" />
                 <br />
                 <br />
                 <span class="auto-style4">Don&#39;t have an account&nbsp; ?</span>

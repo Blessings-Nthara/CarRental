@@ -22,5 +22,15 @@ namespace CarRental2.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:59187/WebService1.asmx")]
+        public string CarRental2_localhost_WebService1 {
+            get {
+                return ((string)(this["CarRental2_localhost_WebService1"]));
+            }
+        }
     }
 }

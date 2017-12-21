@@ -9,10 +9,11 @@ using System.Data;
 
 namespace CarRental2
 {
-    public partial class Admin : System.Web.UI.Page
+    public partial class ReservationAndRentals : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
             SqlConnection con = new SqlConnection("Server=BLESSINGS-PC\\SQLEXPRESS;Database=CARRENTAL;Integrated Security=true");
             SqlCommand command;
             SqlCommand com;
@@ -24,21 +25,25 @@ namespace CarRental2
             SqlDataReader read = command.ExecuteReader();
 
             //       SqlDataReader read = command.ExecuteReader();
-            string val = "2";
+            string val = "0";
 
             while (read.Read())
             {
                 val = read[0].ToString();
 
-                if (val == "1")
+                if (val == "2")
 
-                    Response.Redirect("Customers.aspx");
+                    Response.Redirect("Admin.aspx");
+                else if (val == "0")
+                {
+                    Response.Redirect("index.aspx");
+                }
+
             }
             con.Close();
 
 
-
-            com = new SqlCommand("SELECT * FROM RENTAL", con);
+            com = new SqlCommand("SELECT * FROM RENTAL WHERE CUS_ID IN (SELECT CUS_ID FROM CUSTOMERS WHERE CUS_EMAIL ='"+email+"')", con);
             con.Open();
             SqlDataReader rea = com.ExecuteReader();
 
@@ -60,25 +65,10 @@ namespace CarRental2
 
 
             Label1.Text = "Rentals</br> Rental id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pickup Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dropoff Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Customer Id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reg Num &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pickup Location&nbsp;&nbsp;&nbsp; DropOff Location</br>";
-            //int u = 0
-            //Label1.Text = "rental id</br>";
-            //Label2.Text = "Start date</br>";
-            //Label3.Text = "end date</br>";
-            //Label4.Text = "Customer id</br>";
-            //Label5.Text = "Registiration number</br>";
-            //Label6.Text = "Pickup location</br>";
-            //Label7.Text = "Drop off location</br>";
+            int u = 0;
             while (rea.Read())
             {
-
-                //Label1.Text =Label1.Text+"</br>"  + rea[0].ToString();
-                //Label2.Text = Label2.Text + "</br>" + rea[1].ToString();
-                //Label3.Text =  Label3.Text + "</br>" + rea[2].ToString();
-                //Label4.Text =  Label4.Text + "</br>" + rea[3].ToString();
-                //Label5.Text =  Label5.Text + "</br>" + rea[4].ToString();
-                //Label6.Text =  Label6.Text + "</br>" + rea[5].ToString();
-                //Label7.Text =  Label7.Text + "</br>" + rea[6].ToString();
-                ////    Label1.Text = rea[2].ToString();
+                //    Label1.Text = rea[2].ToString();
 
                 Label1.Text = Label1.Text + rea[0].ToString() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + rea[1].ToString() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   " + rea[2].ToString() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  " + rea[3].ToString() + "  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + rea[4].ToString() + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  " + rea[5].ToString() + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  " + rea[6].ToString() + "</br>";
                 //  u++;  
@@ -89,7 +79,7 @@ namespace CarRental2
 
 
 
-            com = new SqlCommand("SELECT * FROM RESERVATION ", con);
+            com = new SqlCommand("SELECT * FROM RESERVATION WHERE CUS_ID IN (SELECT CUS_ID FROM CUSTOMERS WHERE CUS_EMAIL ='" + email + "')", con);
             con.Open();
             SqlDataReader real = com.ExecuteReader();
 
@@ -110,17 +100,17 @@ namespace CarRental2
 
 
 
-            Label2.Text = "Reservations</br> ResId &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pickup Location&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dropoff Location &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Customer Id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pick Up date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Drop Off Date</br>";
-            //  int u = 0;
+            Label3.Text = "Reservations</br> ResId &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pickup Location&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dropoff Location &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Customer Id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pick Up date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Drop Off Date</br>";
+          //  int u = 0;
             while (real.Read())
             {
                 //    Label1.Text = rea[2].ToString();
 
-                Label2.Text = Label2.Text + real[0].ToString() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + real[1].ToString() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   " + real[2].ToString() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  " + real[3].ToString() + "  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + real[4].ToString() + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  " + real[5].ToString() + "</br>";
+                Label3.Text = Label3.Text + real[0].ToString() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + real[1].ToString() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   " + real[2].ToString() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  " + real[3].ToString() + "  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " + real[4].ToString() + " &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  " + real[5].ToString()  + "</br>";
                 //  u++;  
 
             }
-            Label2.Text = Label2.Text.Replace("00:00:00", "");
+            Label3.Text = Label3.Text.Replace("00:00:00", "");
             con.Close();
 
 
@@ -129,31 +119,15 @@ namespace CarRental2
 
 
 
-        }
 
-        protected void Menu2_MenuItemClick(object sender, MenuEventArgs e)
-        {
 
-        }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            SqlConnection con = new SqlConnection("Server=BLESSINGS-PC\\SQLEXPRESS;Database=CARRENTAL;Integrated Security=true");
-            con.Open();
-            SqlCommand deletecus = new SqlCommand("DELETE FROM RENTAL WHERE RENTAL_ID =" + "'" +TextBox1.Text + "'", con);
-            deletecus.ExecuteNonQuery();
-            con.Close();
 
-        }
 
-        protected void Button2_Click(object sender, EventArgs e)
-        {
 
-            SqlConnection con = new SqlConnection("Server=BLESSINGS-PC\\SQLEXPRESS;Database=CARRENTAL;Integrated Security=true");
-            con.Open();
-            SqlCommand deletecus = new SqlCommand("DELETE FROM RESERVATION WHERE RES_ID =" + "'" + TextBox2.Text + "'", con);
-            deletecus.ExecuteNonQuery();
-            con.Close();
+
+
+
 
         }
     }

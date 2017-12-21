@@ -103,5 +103,435 @@ namespace CarRental2
             }
             con.Close();
         }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            string email = Request.Cookies["UserEmail"].Value;
+            SqlConnection con = new SqlConnection("Server=BLESSINGS-PC\\SQLEXPRESS;Database=CARRENTAL;Integrated Security=true");
+
+            SqlCommand coma = new SqlCommand("SELECT REG_NUM FROM VEHICLE WHERE PICTURE='" + Image1.ImageUrl + "'", con);
+            con.Open();
+
+            SqlDataReader reade = coma.ExecuteReader();
+
+            //       SqlDataReader read = command.ExecuteReader();
+            string bara = "not";
+
+            while (reade.Read())
+            {
+                bara = reade[0].ToString();
+            }
+
+
+            con.Close();
+
+
+
+
+
+
+
+            SqlCommand com = new SqlCommand("SELECT CUS_ID FROM CUSTOMERS WHERE CUS_EMAIL='"+email+"'" , con);
+            con.Open();
+
+            SqlDataReader read = com.ExecuteReader();
+
+            //       SqlDataReader read = command.ExecuteReader();
+            string kumbara="not";
+             
+            while (read.Read())
+            {
+                kumbara = read[0].ToString();
+            }
+
+
+            con.Close();
+
+                con.Open();
+                    SqlCommand command = new SqlCommand("sp_rentcar", con);
+                    command.CommandType = CommandType.StoredProcedure;
+
+
+                    SqlParameter STARTDATE = new SqlParameter("@STARTDATE", SqlDbType.Date);
+                    STARTDATE.Direction = ParameterDirection.Input;
+                    STARTDATE.Value = TextBox8.Text;
+                    command.Parameters.Add(STARTDATE);
+
+                    SqlParameter ENDDATE = new SqlParameter("@ENDDATE", SqlDbType.Date);
+                    ENDDATE.Direction = ParameterDirection.Input;
+                    ENDDATE.Value = TextBox9.Text;
+                    command.Parameters.Add(ENDDATE);
+
+                    SqlParameter CUS_ID = new SqlParameter("@CUS_ID", SqlDbType.Int);
+                    CUS_ID.Direction = ParameterDirection.Input;
+                    CUS_ID.Value = Convert.ToInt32(kumbara);
+                    command.Parameters.Add(CUS_ID);
+
+                    SqlParameter DROPOFFLOC_ID = new SqlParameter("@DROPOFFLOC_ID", SqlDbType.VarChar, 10);
+                    DROPOFFLOC_ID.Direction = ParameterDirection.Input;
+                    DROPOFFLOC_ID.Value = DropDownList2.Text;
+                    command.Parameters.Add(DROPOFFLOC_ID);
+
+                    SqlParameter PICUPLOC_ID = new SqlParameter("@PICUPLOC_ID", SqlDbType.VarChar, 10);
+                    PICUPLOC_ID.Direction = ParameterDirection.Input;
+                    PICUPLOC_ID.Value = DropDownList1.Text;
+                    command.Parameters.Add(PICUPLOC_ID);
+
+                    SqlParameter REG_NUM = new SqlParameter("@REG_NUM", SqlDbType.VarChar, 30);
+                    REG_NUM.Direction = ParameterDirection.Input;
+                    REG_NUM.Value = bara;
+                    command.Parameters.Add(REG_NUM);
+
+                    command.ExecuteNonQuery();
+                    con.Close();
+
+
+                        
+                    }
+
+        protected void Button3_Click(object sender, EventArgs e)
+        {
+            Label10.Visible = true;
+            Label11.Visible = true;
+            DropDownList1.Visible = true;
+            DropDownList2.Visible = true;
+            TextBox8.Visible = true;
+            TextBox9.Visible = true;
+            Button2.Visible = true;
+            Button21.Visible = true;
+        }
+
+        protected void Button21_Click(object sender, EventArgs e)
+        {
+            string email = Request.Cookies["UserEmail"].Value;
+
+            SqlConnection con = new SqlConnection("Server=BLESSINGS-PC\\SQLEXPRESS;Database=CARRENTAL;Integrated Security=true");
+
+          
+
+
+
+            SqlCommand coma = new SqlCommand("SELECT CUS_ID FROM CUSTOMERS WHERE CUS_EMAIL='" + email + "'", con);
+            con.Open();
+
+            SqlDataReader read = coma.ExecuteReader();
+
+            //       SqlDataReader read = command.ExecuteReader();
+            string kumbara = "not";
+
+            while (read.Read())
+            {
+                kumbara = read[0].ToString();
+            }
+
+
+            con.Close();
+
+
+            SqlCommand com = new SqlCommand("INSERT INTO RESERVATION(PICKUPLOC_ID,DRPOFFLOC_ID,CUS_ID,PICKUPDATE,DROPOFFDATE) VALUES ('"+DropDownList1.Text+"','"+DropDownList2.Text+"','"+kumbara+"','" + TextBox8.Text + "','" + TextBox9.Text + "')", con);
+            con.Open();
+            com.ExecuteNonQuery();
+            con.Close();
+
+
+
+
+
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            Label12.Visible = true;
+            Label13.Visible = true;
+            DropDownList3.Visible = true;
+            DropDownList4.Visible = true;
+            TextBox10.Visible = true;
+            TextBox11.Visible = true;
+            Button23.Visible = true;
+            Button24.Visible = true;
+        }
+
+        protected void Button24_Click(object sender, EventArgs e)
+        {
+            string email = Request.Cookies["UserEmail"].Value;
+
+            SqlConnection con = new SqlConnection("Server=BLESSINGS-PC\\SQLEXPRESS;Database=CARRENTAL;Integrated Security=true");
+
+
+
+
+
+            SqlCommand coma = new SqlCommand("SELECT CUS_ID FROM CUSTOMERS WHERE CUS_EMAIL='" + email + "'", con);
+            con.Open();
+
+            SqlDataReader read = coma.ExecuteReader();
+
+            //       SqlDataReader read = command.ExecuteReader();
+            string kumbara = "not";
+
+            while (read.Read())
+            {
+                kumbara = read[0].ToString();
+            }
+
+
+            con.Close();
+
+
+            SqlCommand com = new SqlCommand("INSERT INTO RESERVATION(PICKUPLOC_ID,DRPOFFLOC_ID,CUS_ID,PICKUPDATE,DROPOFFDATE) VALUES ('" + DropDownList3.Text + "','" + DropDownList4.Text + "','" + kumbara + "','" + TextBox10.Text + "','" + TextBox11.Text + "')", con);
+            con.Open();
+            com.ExecuteNonQuery();
+            con.Close();
+
+
+
+
+
+        }
+
+        protected void Button5_Click(object sender, EventArgs e)
+        {
+            Label12.Visible = true;
+            Label13.Visible = true;
+            DropDownList3.Visible = true;
+            DropDownList4.Visible = true;
+            TextBox10.Visible = true;
+            TextBox11.Visible = true;
+            Button23.Visible = true;
+            Button24.Visible = true;
+        }
+
+        protected void Button23_Click(object sender, EventArgs e)
+        {
+            string email = Request.Cookies["UserEmail"].Value;
+            SqlConnection con = new SqlConnection("Server=BLESSINGS-PC\\SQLEXPRESS;Database=CARRENTAL;Integrated Security=true");
+
+            SqlCommand coma = new SqlCommand("SELECT REG_NUM FROM VEHICLE WHERE PICTURE='" + Image2.ImageUrl + "'", con);
+            con.Open();
+
+            SqlDataReader reade = coma.ExecuteReader();
+
+            //       SqlDataReader read = command.ExecuteReader();
+            string bara = "not";
+
+            while (reade.Read())
+            {
+                bara = reade[0].ToString();
+            }
+
+
+            con.Close();
+
+
+
+
+
+
+
+            SqlCommand com = new SqlCommand("SELECT CUS_ID FROM CUSTOMERS WHERE CUS_EMAIL='" + email + "'", con);
+            con.Open();
+
+            SqlDataReader read = com.ExecuteReader();
+
+            //       SqlDataReader read = command.ExecuteReader();
+            string kumbara = "not";
+
+            while (read.Read())
+            {
+                kumbara = read[0].ToString();
+            }
+
+
+            con.Close();
+
+            con.Open();
+            SqlCommand command = new SqlCommand("sp_rentcar", con);
+            command.CommandType = CommandType.StoredProcedure;
+
+
+            SqlParameter STARTDATE = new SqlParameter("@STARTDATE", SqlDbType.Date);
+            STARTDATE.Direction = ParameterDirection.Input;
+            STARTDATE.Value = TextBox10.Text;
+            command.Parameters.Add(STARTDATE);
+
+            SqlParameter ENDDATE = new SqlParameter("@ENDDATE", SqlDbType.Date);
+            ENDDATE.Direction = ParameterDirection.Input;
+            ENDDATE.Value = TextBox11.Text;
+            command.Parameters.Add(ENDDATE);
+
+            SqlParameter CUS_ID = new SqlParameter("@CUS_ID", SqlDbType.Int);
+            CUS_ID.Direction = ParameterDirection.Input;
+            CUS_ID.Value = Convert.ToInt32(kumbara);
+            command.Parameters.Add(CUS_ID);
+
+            SqlParameter DROPOFFLOC_ID = new SqlParameter("@DROPOFFLOC_ID", SqlDbType.VarChar, 10);
+            DROPOFFLOC_ID.Direction = ParameterDirection.Input;
+            DROPOFFLOC_ID.Value = DropDownList4.Text;
+            command.Parameters.Add(DROPOFFLOC_ID);
+
+            SqlParameter PICUPLOC_ID = new SqlParameter("@PICUPLOC_ID", SqlDbType.VarChar, 10);
+            PICUPLOC_ID.Direction = ParameterDirection.Input;
+            PICUPLOC_ID.Value = DropDownList3.Text;
+            command.Parameters.Add(PICUPLOC_ID);
+
+            SqlParameter REG_NUM = new SqlParameter("@REG_NUM", SqlDbType.VarChar, 30);
+            REG_NUM.Direction = ParameterDirection.Input;
+            REG_NUM.Value = bara;
+            command.Parameters.Add(REG_NUM);
+
+            command.ExecuteNonQuery();
+            con.Close();
+
+        }
+
+        protected void Button6_Click(object sender, EventArgs e)
+        {
+            Label14.Visible = true;
+            Label15.Visible = true;
+            DropDownList5.Visible = true;
+            DropDownList6.Visible = true;
+            TextBox12.Visible = true;
+            TextBox13.Visible = true;
+            Button26.Visible = true;
+            Button28.Visible = true;
+        }
+
+        protected void Button7_Click(object sender, EventArgs e)
+        {
+            Label14.Visible = true;
+            Label15.Visible = true;
+            DropDownList5.Visible = true;
+            DropDownList6.Visible = true;
+            TextBox12.Visible = true;
+            TextBox13.Visible = true;
+            Button26.Visible = true;
+            Button28.Visible = true;
+        }
+
+        protected void Button26_Click(object sender, EventArgs e)
+        {
+            string email = Request.Cookies["UserEmail"].Value;
+            SqlConnection con = new SqlConnection("Server=BLESSINGS-PC\\SQLEXPRESS;Database=CARRENTAL;Integrated Security=true");
+
+            SqlCommand coma = new SqlCommand("SELECT REG_NUM FROM VEHICLE WHERE PICTURE='" + Image3.ImageUrl + "'", con);
+            con.Open();
+
+            SqlDataReader reade = coma.ExecuteReader();
+
+            //       SqlDataReader read = command.ExecuteReader();
+            string bara = "not";
+
+            while (reade.Read())
+            {
+                bara = reade[0].ToString();
+            }
+
+
+            con.Close();
+
+
+
+
+
+
+
+            SqlCommand com = new SqlCommand("SELECT CUS_ID FROM CUSTOMERS WHERE CUS_EMAIL='" + email + "'", con);
+            con.Open();
+
+            SqlDataReader read = com.ExecuteReader();
+
+            //       SqlDataReader read = command.ExecuteReader();
+            string kumbara = "not";
+
+            while (read.Read())
+            {
+                kumbara = read[0].ToString();
+            }
+
+
+            con.Close();
+
+            con.Open();
+            SqlCommand command = new SqlCommand("sp_rentcar", con);
+            command.CommandType = CommandType.StoredProcedure;
+
+
+            SqlParameter STARTDATE = new SqlParameter("@STARTDATE", SqlDbType.Date);
+            STARTDATE.Direction = ParameterDirection.Input;
+            STARTDATE.Value = TextBox12.Text;
+            command.Parameters.Add(STARTDATE);
+
+            SqlParameter ENDDATE = new SqlParameter("@ENDDATE", SqlDbType.Date);
+            ENDDATE.Direction = ParameterDirection.Input;
+            ENDDATE.Value = TextBox13.Text;
+            command.Parameters.Add(ENDDATE);
+
+            SqlParameter CUS_ID = new SqlParameter("@CUS_ID", SqlDbType.Int);
+            CUS_ID.Direction = ParameterDirection.Input;
+            CUS_ID.Value = Convert.ToInt32(kumbara);
+            command.Parameters.Add(CUS_ID);
+
+            SqlParameter DROPOFFLOC_ID = new SqlParameter("@DROPOFFLOC_ID", SqlDbType.VarChar, 10);
+            DROPOFFLOC_ID.Direction = ParameterDirection.Input;
+            DROPOFFLOC_ID.Value = DropDownList6.Text;
+            command.Parameters.Add(DROPOFFLOC_ID);
+
+            SqlParameter PICUPLOC_ID = new SqlParameter("@PICUPLOC_ID", SqlDbType.VarChar, 10);
+            PICUPLOC_ID.Direction = ParameterDirection.Input;
+            PICUPLOC_ID.Value = DropDownList5.Text;
+            command.Parameters.Add(PICUPLOC_ID);
+
+            SqlParameter REG_NUM = new SqlParameter("@REG_NUM", SqlDbType.VarChar, 30);
+            REG_NUM.Direction = ParameterDirection.Input;
+            REG_NUM.Value = bara;
+            command.Parameters.Add(REG_NUM);
+
+            command.ExecuteNonQuery();
+            con.Close();
+
+        }
+
+        protected void TextBox13_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button28_Click(object sender, EventArgs e)
+        {
+            string email = Request.Cookies["UserEmail"].Value;
+
+            SqlConnection con = new SqlConnection("Server=BLESSINGS-PC\\SQLEXPRESS;Database=CARRENTAL;Integrated Security=true");
+
+
+
+
+
+            SqlCommand coma = new SqlCommand("SELECT CUS_ID FROM CUSTOMERS WHERE CUS_EMAIL='" + email + "'", con);
+            con.Open();
+
+            SqlDataReader read = coma.ExecuteReader();
+
+            //       SqlDataReader read = command.ExecuteReader();
+            string kumbara = "not";
+
+            while (read.Read())
+            {
+                kumbara = read[0].ToString();
+            }
+
+
+            con.Close();
+
+
+            SqlCommand com = new SqlCommand("INSERT INTO RESERVATION(PICKUPLOC_ID,DRPOFFLOC_ID,CUS_ID,PICKUPDATE,DROPOFFDATE) VALUES ('" + DropDownList5.Text + "','" + DropDownList6.Text + "','" + kumbara + "','" + TextBox12.Text + "','" + TextBox13.Text + "')", con);
+            con.Open();
+            com.ExecuteNonQuery();
+            con.Close();
+
+
+
+
+
+        }
     }
 }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
+using System.Data.SqlClient;
+using System.Data;
+
 
 namespace CarRental2
 {
@@ -18,9 +21,26 @@ namespace CarRental2
     {
 
         [WebMethod]
-        public string HelloWorld()
+        public bool UsernameCheck(string UserName)
         {
-            return "Hello World";
+            bool UserNameInUse = false;
+            SqlConnection con = new SqlConnection("Server=BLESSINGS-PC\\SQLEXPRESS;Database=CARRENTAL;Integrated Security=true");
+            using (con)
+            {
+                SqlCommand command = new SqlCommand("spUserNameExists", con);
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add(new SqlParameter()
+                {
+                    ParameterName = "@UserName",
+                    Value = UserName
+
+                });
+                con.Open();
+                UserNameInUse = Convert.ToBoolean(command.ExecuteScalar());
+            }
+            con.Close();
+            return UserNameInUse;
         }
     }
 }

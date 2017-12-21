@@ -77,7 +77,7 @@
                     <Items>
                         <asp:MenuItem Text="HOME" Value="HOME" NavigateUrl="~/index.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="CARS TO RENT" Value="SERVICES" NavigateUrl="~/CarsToRent.aspx"></asp:MenuItem>
-                        <asp:MenuItem Text="ABOUT US" Value="ABOUS US" NavigateUrl="~/Aboutus.aspx"></asp:MenuItem>
+                        <asp:MenuItem Text="ABOUT US" Value="ABOUS US" NavigateUrl="~/About.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="LOGIN" Value="LOGIN" NavigateUrl="~/Customers.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="SIGN UP" Value="SIGN UP" NavigateUrl="~/Signup.aspx"></asp:MenuItem>
                         <asp:MenuItem Text="CONTACT US" Value="CONTACT US"></asp:MenuItem>
